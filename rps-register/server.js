@@ -27,7 +27,8 @@ connection.connect(function(err) {
 
 
 app.post("/register", function(req, res) {
-
+	if ( !req.body.username ) return res.status(400).send("username is required");
+	
 	var user = {
 		username: req.body.username,
 		sessionid: uid(16)
@@ -35,17 +36,18 @@ app.post("/register", function(req, res) {
 
 	console.log(user);
 
-	var query = [
-		"DELETE FROM users WHERE username = ?;",
-		"INSERT INTO users (username, sessionid) VALUES(?, ?);"
-		].join(" ");
-	connection.query(query, [user.username, user.username, user.sessionid], function(err) {
+	var delQuery = "DELETE FROM users WHERE username = ?";
+	connection.query(delQuery, [user.username], function(err) {
 		if (err) throw err;
-		console.log("User successfully added");
 
-	res.send({ "sessionid": user.sessionid });
+		var insQuery = "INSERT INTO users (username, sessionid) VALUES(?, ?)";
+		connection.query(insQuery, [user.username, user.sessionid], function(err) {
+			console.log("User added successfully");
 
+			res.send({ "sessionid": user.sessionid });
+		});
 	});
+
 });
 
 
