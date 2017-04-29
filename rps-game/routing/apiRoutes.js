@@ -1,18 +1,25 @@
 // DATA AREA
 
-var users = require('../data/users');
+var users = require('../config/orm.js');
 
 // ==========
 // ROUTING
 // ==========
+
 module.exports = function(app){
-	app.get('/api/', function(req, res) {
+	app.get('/post/start-game' function(req, res) {
 		res.json(users);
 	});
 	
-	app.post('/api/', function(req, res){
+	app.post('/post/start-game', function(req, res){
 		res.send(req.body);
-		users.push(req.body);
+		// users.push(req.body);
 	});
 }
 
+
+// rows.length > 0
+// row will either be null or it will be the user 
+
+
+// SELECT * FROM users WHERE id = 

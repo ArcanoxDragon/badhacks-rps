@@ -18,8 +18,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // 3. get second sessionid from users table using friendname
 // 4. generate uid(16) for gameid
 // 5. put both sessionids and gameid into games table
-
-
+	
 orm.selectAll();
 
 app.listen(PORT, function() {
