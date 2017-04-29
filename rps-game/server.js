@@ -28,28 +28,27 @@ connection.connect(function(err) {
 app.post('/start-game', function(req, res){
 	if (!req.body.username) return res.status(400).send('user is required');
 	
-	// adding the user
+	// variables
 	var session = req.body.sessionid;		
 	var friend = req.body.friendname;
-	var checkQuery = "Insert INTO games(gameId, session1, session2) VALUES (?,?,?)"
-	var checkQueryPlayer1 = "SELECT * FROM users WHERE sessionid = ?";
-	var checkQueryPlayer2 = "SELECT * FROM users WHERE username = ?";
-	
 	var gameid = uid(16);
 	var session1 = session;
 	var session2 = player2.sessionid
 
+	var checkQueryPlayer1 = "SELECT * FROM users WHERE sessionid = ?";
 	connection.query(checkQueryPlayer1, [session], function(err) {	
 		if (err) throw err;
 		if (return rows && rows.length > 0);
 	});
 	
+	var checkQueryPlayer2 = "SELECT * FROM users WHERE username = ?";
 	connection.query(checkQueryPlayer2, [friend], function(err) {
 		if (err) throw err;
 		if (return rows && rows.length > 0);
 		return player2 = rows[0];
 	});
-
+	
+	var checkQuery = "Insert INTO games(gameId, session1, session2) VALUES (?,?,?)";
 	connection.query(checkQuery, [gameid, session1, session2], function(err) {
 		
 	});
