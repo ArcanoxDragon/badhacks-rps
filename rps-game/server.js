@@ -9,6 +9,7 @@ var orm 		= require("./config/orm.js");
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
+require('./routing/apiRoutes.js')(app);
 // app.use(express.static('./public'));
 
 // Service 2 (Game Service)
@@ -19,6 +20,8 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // 4. generate uid(16) for gameid
 // 5. put both sessionids and gameid into games table
 	
+
+
 orm.selectAll();
 
 app.listen(PORT, function() {

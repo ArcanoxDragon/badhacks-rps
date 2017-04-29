@@ -1,21 +1,18 @@
 // DATA AREA
 
-var users = require('../config/orm.js');
 
 // ==========
 // ROUTING
 // ==========
 
 module.exports = function(app){
-	app.get('/post/start-game' function(req, res) {
-		res.json(users);
-	});
-	
-	app.post('/post/start-game', function(req, res){
-		res.send(req.body);
-		// users.push(req.body);
+
+app.post('/start-game', function(req, res){
+		req.body(friendname);
+		req.body(sessionid);
 	});
 }
+
 
 
 // rows.length > 0
