@@ -26,35 +26,32 @@ connection.connect(function(err) {
 });
 
 app.post('/start-game', function(req, res){
-	if (!req.body.friendname) return res.status(400).send('friend name not found ');
+	if (!req.body.username) return res.status(400).send('user is required');
 	
-	var friend = {
-		friendname: req.body.friendname,		
-		sessionid: uid(16)
+	// adding the user
+	var session = req.body.sessionid;		
+	var friend = req.body.friendname;
+	var checkQuery = "Insert INTO games(gameId, session1, session2) VALUES (?,?,?)"
+	var checkQueryPlayer1 = "SELECT * FROM users WHERE sessionid = ?";
+	var checkQueryPlayer2 = "SELECT * FROM users WHERE username = ?";
+	
+	var gameid = uid(16);
+	var session1 = session;
+	var session2 = player2.sessionid
+
+	connection.query(checkQueryPlayer1, [session], function(err) {	
+		if (err) throw err;
+		if (return rows && rows.length > 0);
+	});
+	
+	connection.query(checkQueryPlayer2, [friend], function(err) {
+		if (err) throw err;
+		if (return rows && rows.length > 0);
+		return player2 = rows[0];
+	});
+
+	connection.query(checkQuery, [gameid, session1, session2], function(err) {
 		
-	}
-
-	console.log(friend);
-
-	var query = "SELECT * FROM session1 WHERE sessionid = ?";
-
-	connection.query(query, [friend.friendname], function(err) {
-			if (err) throw err;
-			
-			var returnQuery = "INSERT INTO session1 (friend, sessionid) VALUES(?,?)"; 
-
-			connection.query(insertQuery, [friend.friendname, friend.sessionid], function(err) {
-			console.log("Friend is available");
-
-			res.send({ "sessionid": user.sessionid });
-		});
-		});
-
-
-	// returning a row of the user trying to start the start-game
-	
-	// SELECT FROM USER WHERE friendname
-
 	});
 }
 
