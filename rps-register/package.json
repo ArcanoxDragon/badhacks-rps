@@ -1,0 +1,17 @@
+{
+  "name": "rps-register",
+  "version": "1.0.0",
+  "description": "RPS hack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mysql": "^2.13.0",
+    "uid": "0.0.2"
+  }
+}
