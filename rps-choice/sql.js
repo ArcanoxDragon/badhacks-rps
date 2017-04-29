@@ -38,11 +38,13 @@ module.exports = {
 
         return runQuery( "SELECT * FROM users WHERE sessionid = ?", [ sessionId ] )
             .then( result => {
-                sessionExists = ( !result || result.length === 0 );
+                console.log( "session:", result );
+                sessionExists = !( !result || result.length === 0 );
             } )
             .then(() => runQuery( "SELECT * FROM games WHERE session1 = ? OR session2 = ?", [ sessionId, sessionId ] ) )
             .then( result => {
-                inGame = ( !result || result.length === 0 );
+                console.log( "game:", result );
+                inGame = !( !result || result.length === 0 );
             } )
             .then(() => sessionExists && inGame );
     },
