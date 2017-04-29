@@ -6,10 +6,16 @@
 // ==========
 
 module.exports = function(app){
+	let friendname = req.body.friendname;
+	let sessionid = req.body.sessionid;
 
 app.post('/start-game', function(req, res){
-		req.body(friendname);
-		req.body(sessionid);
+	query = "SELECT FROM users WHERE ? = ?" 
+	if (query + [sessionid], function(){}
+		// returning a row of the user trying to start the start-game
+		
+		// SELECT FROM USER WHERE friendname
+
 	});
 }
 
