@@ -2,15 +2,61 @@ var express 	= require('express');
 var bodyParser 	= require('body-parser');
 var exphbs 		= require("express-handlebars");
 var app 		= express();
-var path 		= require('path');
+// var path 		= require('path');
 var PORT 		= process.env.PORT || 7002;
 var orm 		= require("./config/orm.js");
+var mysql 		= require('mysql');
 
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
-require('./routing/apiRoutes.js')(app);
-// app.use(express.static('./public'));
+var connection 	= mysql.createConnection({
+	host: 'arcanox.me',
+	user: 'badhacks-rps',
+	password: 'badhacks2017',
+	database: 'badhacks-rps'
+});
+
+connection.connect(function(err) {
+ 	if (err) {
+		console.error("error connecting: " + err.stack);
+		return;
+	}
+  	console.log("connected as id " + connection.threadId);
+});
+
+app.post('/start-game', function(req, res){
+	if (!req.body.friendname) return res.status(400).send('friend name not found ');
+	
+	var friend = {
+		friendname: req.body.friendname,		
+		sessionid: uid(16)
+		
+	}
+
+	console.log(friend);
+
+	var query = "SELECT * FROM session1 WHERE sessionid = ?";
+
+	connection.query(query, [friend.friendname], function(err) {
+			if (err) throw err;
+			
+			var returnQuery = "INSERT INTO session1 (friend, sessionid) VALUES(?,?)"; 
+
+			connection.query(insertQuery, [friend.friendname, friend.sessionid], function(err) {
+			console.log("Friend is available");
+
+			res.send({ "sessionid": user.sessionid });
+		});
+		});
+
+
+	// returning a row of the user trying to start the start-game
+	
+	// SELECT FROM USER WHERE friendname
+
+	});
+}
 
 // Service 2 (Game Service)
 
@@ -19,10 +65,6 @@ require('./routing/apiRoutes.js')(app);
 // 3. get second sessionid from users table using friendname
 // 4. generate uid(16) for gameid
 // 5. put both sessionids and gameid into games table
-	
-
-
-orm.selectAll();
 
 app.listen(PORT, function() {
 	console.log('App listening on PORT ' + PORT);
