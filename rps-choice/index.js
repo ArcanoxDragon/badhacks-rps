@@ -17,7 +17,7 @@ app.post( "/choose", ( req, res ) => {
         return res.send( 400 /* Bad Request */ ).send( "Missing parameter" );
 
     db
-        .checkSession()
+        .checkSession( sessionid )
         .then( valid => {
             if ( !valid ) throw { status: 400, message: "Session invalid or not in a game" };
         } )
