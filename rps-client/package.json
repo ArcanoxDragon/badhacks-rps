@@ -16,6 +16,7 @@
     "express-babelify-middleware": "^0.2.1",
     "gulp": "^3.9.1",
     "jquery": "^3.2.1",
+    "js-cookie": "^2.1.4",
     "node-sass-middleware": "^0.11.0",
     "pug": "^2.0.0-beta.12",
     "toastr": "^2.1.2"

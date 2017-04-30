@@ -5,9 +5,15 @@ html
     head
         title Rock Paper Scissors 2017 Professional
 
+        script.
+            window.servicesConfig = !{ JSON.stringify( services ) };
+
         block imports
             link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto")
+            +style("toastr")
             +style("main")
+
+            +script("common")
 
     body
         block body

@@ -6,10 +6,11 @@ var sass = require( "node-sass-middleware" );
 
 const commonModules = [
     "jquery",
-    "toastr"
+    "toastr",
+    "js-cookie"
 ];
 
-const serviesConfig = require("./config/services.json");
+const servicesConfig = require("./config/services.json");
 
 var viewsDir = path.join( __dirname, "views" );
 var app = express();
@@ -18,6 +19,7 @@ app.set( "view engine", "pug" );
 app.set( "views", viewsDir );
 
 app.locals.basedir = viewsDir;
+app.locals.services = servicesConfig;
 
 app.use( sass( {
     src: path.join( __dirname, "styles" ),
@@ -40,10 +42,6 @@ app.use( "/js", browserify( path.join( __dirname, "client" ), {
     precompile: false,
     transform: babelify
 } ) );
-
-app.get( "/services", ( req, res ) => {
-    res.send( servicesConfig )
-} );
 
 app.get( "/", ( req, res ) => res.render( "pages/index" ) );
 
