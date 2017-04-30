@@ -10,7 +10,7 @@ const commonModules = [
     "js-cookie"
 ];
 
-const servicesConfig = require("./config/services.json");
+const servicesConfig = require( "./config/services.json" );
 
 var viewsDir = path.join( __dirname, "views" );
 var app = express();
@@ -31,7 +31,7 @@ app.use( sass( {
 
 app.get( "/js/common.js", browserify( commonModules, {
     minify: true,
-    transform: "babelify"
+    transform: babelify
 } ) );
 
 app.use( "/js", browserify( path.join( __dirname, "client" ), {
