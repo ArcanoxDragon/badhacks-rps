@@ -13,6 +13,6 @@ Promise
     .all( config.services.map( s => npmInstall( s ) ) )
     .then(() => {
         config.services.forEach( s => {
-            cp.fork( s );
+            cp.fork( s, { cwd: path.join( __dirname, s ) } );
         } );
     } );
