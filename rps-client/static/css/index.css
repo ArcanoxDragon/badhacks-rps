@@ -1,0 +1,8 @@
+#loginWrapper {
+  display: inline-block;
+  text-align: left;
+  width: 256px;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.125); }
+  #loginWrapper input[type=text] {
+    width: 100%; }

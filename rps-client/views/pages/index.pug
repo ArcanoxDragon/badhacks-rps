@@ -1,0 +1,17 @@
+extends /layout.pug
+
+append imports
+    +style("index")
+
+    +script("index")
+
+block body
+    h1 Rock Paper Scissors 2017 Professional
+
+    #loginWrapper
+        label(htmlFor="txtUsername") Enter a username:
+        br
+        input#txtUsername(type="text" placeholder="Username")
+        br
+        
+        input#btnSubmit(type="button" value="Submit")

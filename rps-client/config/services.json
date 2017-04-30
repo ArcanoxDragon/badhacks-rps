@@ -1,0 +1,7 @@
+{
+    "register": "arcanox.me:7001",
+    "game": "arcanox.me:7002",
+    "choose": "arcanox.me:7003",
+    "checkjoined": "arcanox.me:7004",
+    "checkturn": "arcanox.me:7005"
+}
