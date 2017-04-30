@@ -1,10 +1,8 @@
 var mysql = require( "mysql" );
 
 var dbConfig = {
-    // host: "arcanox.me",
-    // port: 3306,
-    host: "localhost",
-    port: 3307,
+    host: "arcanox.me",
+    port: 3306,
     user: "badhacks-rps",
     password: "badhacks2017",
     database: "badhacks-rps"
