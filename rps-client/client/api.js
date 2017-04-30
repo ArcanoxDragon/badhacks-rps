@@ -6,7 +6,7 @@ export default function ( serviceName, url, data ) {
             url: `http://${servicesConfig[ serviceName ]}/${url}`,
             method: "POST",
             contentType: "application/json",
-            data,
+            data: JSON.stringify( data ),
             success: ( result ) => res( result ),
             error: ( xhr, err, status ) => rej( { status: xhr.status, message: xhr.statusText } )
         } )
