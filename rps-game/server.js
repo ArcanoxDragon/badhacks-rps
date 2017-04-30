@@ -2,7 +2,7 @@ var express 	= require('express');
 var bodyParser 	= require('body-parser');
 var exphbs 		= require("express-handlebars");
 var app 		= express();
-// var path 		= require('path');
+var uid 		= require('uid');
 var PORT 		= process.env.PORT || 7002;
 var orm 		= require("./config/orm.js");
 var mysql 		= require('mysql');
@@ -26,33 +26,46 @@ connection.connect(function(err) {
 });
 
 app.post('/start-game', function(req, res){
-	if (!req.body.username) return res.status(400).send('user is required');
 	
 	// variables
 	var session = req.body.sessionid;		
 	var friend = req.body.friendname;
 	var gameid = uid(16);
 	var session1 = session;
-	var session2 = player2.sessionid
+	
+	if (!session) return res.status(400).send('sessionid is required');
+	if (!friend) return res.status(400).send('friendname is required');
 
 	var checkQueryPlayer1 = "SELECT * FROM users WHERE sessionid = ?";
-	connection.query(checkQueryPlayer1, [session], function(err) {	
+	connection.query(checkQueryPlayer1, [session], function(err, rows) {	
+		console.log('the first set of rows', rows);
 		if (err) throw err;
-		if (return rows && rows.length > 0);
-	});
-	
-	var checkQueryPlayer2 = "SELECT * FROM users WHERE username = ?";
-	connection.query(checkQueryPlayer2, [friend], function(err) {
-		if (err) throw err;
-		if (return rows && rows.length > 0);
-		return player2 = rows[0];
-	});
-	
-	var checkQuery = "Insert INTO games(gameId, session1, session2) VALUES (?,?,?)";
-	connection.query(checkQuery, [gameid, session1, session2], function(err) {
+		if (!(rows && rows.length > 0)) {
+			res.status(404).send("Your session is not valid");
+			return;
+		};
 		
+		var checkQueryPlayer2 = "SELECT * FROM users WHERE username = ?";
+		connection.query(checkQueryPlayer2, [friend], function(err, rows) {
+			console.log('this the second set of rows', rows)
+
+			if (err) throw err;
+			if (!(rows && rows.length > 0)) {
+				res.status(404).send("Your friend has not registered");
+				return;
+
+			};
+			var player2 = rows[0];
+			var session2 = player2.sessionid;
+
+			var checkQuery = "Insert INTO games(gameId, session1, session2) VALUES (?,?,?)";
+			connection.query(checkQuery, [gameid, session1, session2], function(err) {
+				res.send({ gameid: gameid, othersession: session2 })
+			});
+		});
 	});
-}
+	
+});
 
 // Service 2 (Game Service)
 
