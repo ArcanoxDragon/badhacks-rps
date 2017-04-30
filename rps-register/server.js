@@ -3,10 +3,12 @@ var express = require("express");
 var mysql = require("mysql");
 var bodyParser = require("body-parser");
 var uid = require("uid");
+var cors = require("cors");
 
 var app = express();
 var PORT = 7001;
 
+app.use(cors());
 app.use(bodyParser.json());
 
 var connection = mysql.createConnection({

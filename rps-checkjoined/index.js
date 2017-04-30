@@ -1,9 +1,11 @@
 var express = require( "express" );
 var bodyParser = require( "body-parser" );
 var db = require( "./sql" );
+var cors = require("cors");
 
 var app = express();
 
+app.use(cors());
 app.use( bodyParser.json() );
 
 app.post( "/ingame", ( req, res ) => {

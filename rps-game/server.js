@@ -6,7 +6,9 @@ var uid 		= require('uid');
 var PORT 		= process.env.PORT || 7002;
 var orm 		= require("./config/orm.js");
 var mysql 		= require('mysql');
+var cors		= require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
