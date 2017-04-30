@@ -9,7 +9,6 @@ var PORT = 7001;
 
 app.use(bodyParser.json());
 
-
 var connection = mysql.createConnection({
   host: "arcanox.me",
   user: "badhacks-rps",
@@ -51,9 +50,6 @@ app.post("/register", function(req, res) {
 });
 
 
-
-
-
 app.listen(PORT, function() {
-	console.log("Is this working?");
+	console.log("Register listening on " + PORT);
 });
